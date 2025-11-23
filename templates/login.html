@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style> 
+        /* Estilos específicos para o login */
+        body {
+            background: linear-gradient(135deg, #1a202c, #2d3748, #1a202c);
+            color: #edf2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .futuristic-login-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .futuristic-login-box h2 {
+            color: #63b3ed;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .futuristic-login-box button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(90deg, #4299e1, #2b6cb0);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .futuristic-login-box button:hover {
+            background: linear-gradient(90deg, #3182ce, #2c5282);
+        }
+        .mensagem-erro { color: #fc8181; margin-bottom: 15px; font-weight: bold; }
+        .back-btn { display: block; margin-top: 20px; color: #a0aec0; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="futuristic-login-box">
+        <h2>&#128273; Acesso ao Sistema</h2>
+        
+        {% if erro %}
+            <p class="mensagem-erro">{{ erro }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <label for="usuario" style="display: block; text-align: left; margin-bottom: 5px;">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="senha" style="display: block; text-align: left; margin-bottom: 5px;">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="back-btn">&#9664; Voltar para a Inicial</a>
+    </div>
+</body>
+</html>

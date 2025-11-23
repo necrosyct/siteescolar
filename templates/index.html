@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo(a) ao Sistema Escolar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="futuristic-bg">
+    <div class="futuristic-container">
+        <h1>&#128640; Bem-vindo(a) ao Sistema Escolar</h1>
+        <p>Acesse sua plataforma digital.</p>
+
+        <a href="{{ url_for('login') }}" class="futuristic-btn futuristic-btn-professor">
+            &#128104;&#8205;&#127891; **Login de Educador**
+        </a>
+
+        <a href="{{ url_for('login') }}" class="futuristic-btn futuristic-btn-aluno">
+            &#128100; **Login de Aluno**
+        </a>
+    </div>
+</body>
+</html>

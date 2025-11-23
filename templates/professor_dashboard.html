@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Professor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .aluno-list-item { 
+            background: #2d3748; 
+            padding: 10px; 
+            margin-bottom: 5px; 
+            border-radius: 4px;
+            color: #edf2f7;
+        }
+    </style>
+</head>
+<body class="dark-dashboard-bg">
+    <div class="futuristic-container-panel">
+        <h1>&#128104;&#8205;&#127891; Dashboard do Professor(a) {{ nome_professor }}</h1>
+        <a href="{{ url_for('logout') }}" class="logout">Sair</a>
+
+        {% if mensagem_sucesso %}
+            <div class="mensagem-sucesso" style="background: #48bb78; color: white; padding: 10px; border-radius: 4px; margin-bottom: 15px;">{{ mensagem_sucesso }}</div>
+        {% endif %}
+
+        {% if session['user_username'] == 'admin' %}
+            <a href="{{ url_for('admin_dashboard') }}" class="btn-futuristic-primary" style="display: inline-block; margin-bottom: 25px;">
+                &#128187; Acessar Painel Admin
+            </a>
+        {% endif %}
+
+        <div class="section">
+            <h2>&#128680; Registrar Ocorrência</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="ocorrencia">
+                
+                <label for="aluno_ocorrencia">Selecionar Aluno:</label>
+                <select id="aluno_ocorrencia" name="aluno_ocorrencia" required>
+                    {% for aluno in alunos %}
+                        <option value="{{ aluno.id }}">{{ aluno.nome }} (Turma: {{ aluno.turma }})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="descricao_ocorrencia">Descrição da Ocorrência:</label>
+                <textarea id="descricao_ocorrencia" name="descricao_ocorrencia" rows="4" required></textarea>
+
+                <button type="submit" class="btn-futuristic-primary">Registrar Ocorrência</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>&#128218; Adicionar Lição de Casa</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="licao">
+                
+                <label for="licao_descricao">Descrição da Lição:</label>
+                <textarea id="licao_descricao" name="licao_descricao" rows="4" required></textarea>
+
+                <label for="licao_prazo">Prazo de Entrega (dd/mm/aaaa):</label>
+                <input type="text" id="licao_prazo" name="licao_prazo" required>
+
+                <button type="submit" class="btn-futuristic-primary">Adicionar Lição</button>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>&#128100; Lista de Alunos</h2>
+            {% for aluno in alunos %}
+                <div class="aluno-list-item">
+                    **{{ aluno.nome }}** | Turma: {{ aluno.turma or 'N/A' }} | Ano: {{ aluno.ano_letivo or 'N/A' }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

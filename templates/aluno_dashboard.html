@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Aluno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Estilos específicos para o painel do aluno */
+        .aluno-header {
+            display: flex;
+            align-items: center;
+            gap: 25px; /* Aumenta o espaço entre a foto e o texto */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 25px;
+        }
+        .aluno-foto {
+            width: 100px; /* Aumenta o tamanho da foto */
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #63b3ed; /* Borda mais destacada */
+            box-shadow: 0 0 15px rgba(99, 179, 237, 0.5); /* Efeito de brilho */
+        }
+        .info-box {
+            background-color: #4a5568;
+            padding: 15px 20px; /* Mais padding */
+            border-radius: 8px; /* Borda mais arredondada */
+            margin-top: 15px;
+            border-left: 6px solid #90cdf4; /* Borda lateral mais grossa */
+            font-weight: bold;
+            color: #edf2f7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .ocorrencia, .licao {
+            border-left: 6px solid #63b3ed; /* Borda mais grossa */
+            background-color: #2d3748; /* Fundo levemente mais claro para contraste */
+            padding: 18px; /* Mais padding */
+            margin-bottom: 15px; /* Mais espaço entre itens */
+            border-radius: 6px; /* Borda arredondada */
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        .ocorrencia strong, .licao strong {
+            color: #90cdf4; /* Cor para as informações principais */
+        }
+        .ocorrencia p, .licao p {
+            margin-top: 8px;
+            color: #a0aec0; /* Cor para descrições */
+        }
+    </style>
+</head>
+<body class="dark-dashboard-bg">
+    <div class="futuristic-container-panel">
+        <a href="{{ url_for('logout') }}" class="logout">Sair</a>
+        
+        <div class="aluno-header">
+            <img src="{{ url_for('static', filename='uploads/' + (aluno.foto_perfil or 'default_user.png')) }}" class="aluno-foto" alt="Foto de Perfil">
+            <div>
+                <h1>&#128102; Dashboard Aluno: {{ aluno.nome }}</h1>
+                <div class="info-box">
+                    **Turma:** {{ aluno.turma or 'N/A' }} | **Ano Letivo:** {{ aluno.ano_letivo or 'N/A' }}
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                Suas Ocorrências
+            </h2>
+            {% for oc in ocorrencias %}
+                <div class="ocorrencia">
+                    <strong>Data:</strong> {{ oc.data }}<br>
+                    <strong>Professor(a):</strong> {{ oc.professor.nome }}<br>
+                    <p>**Motivo:** {{ oc.descricao }}</p>
+                </div>
+            {% else %}
+                <p style="color: #a0aec0;">Você não tem ocorrências registradas. Ótimo!</p>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                Lições de Casa
+            </h2>
+            {% for licao in licoes %}
+                <div class="licao">
+                    <strong>Prazo:</strong> {{ licao.prazo }}<br>
+                    <strong>Professor:</strong> {{ licao.professor_licao.nome }}<br>
+                    <p>**Descrição:** {{ licao.descricao }}</p>
+                </div>
+            {% else %}
+                <p style="color: #a0aec0;">Não há lições de casa pendentes.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

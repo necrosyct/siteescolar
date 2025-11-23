@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style> 
+        .edit-form { 
+            max-width: 600px; 
+            margin: auto; 
+            padding: 30px; 
+            border: 1px solid #4a5568; 
+            border-radius: 12px; 
+            background-color: #2d3748; 
+        }
+        .edit-form h2 { color: #90cdf4; }
+        .warning { color: #fed7aa; background-color: #4a5568; border: 1px solid #718096; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+        .current-photo { margin-bottom: 15px; text-align: center;}
+        .current-photo img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #63b3ed;}
+        
+        .edit-form input[type="file"] {
+            background: #4a5568;
+            color: #edf2f7;
+            border: 1px solid #718096;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .back-btn { margin-right: 15px; background: #718096; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; transition: background-color 0.2s; }
+        .back-btn:hover { background: #4a5568; }
+    </style>
+</head>
+<body class="dark-dashboard-bg">
+    <div class="futuristic-container-panel">
+        <h1>&#9999; Editar Perfil: {{ usuario.nome }}</h1>
+        <a href="{{ url_for('admin_dashboard') }}" class="back-btn">&#9664; Voltar para o Admin</a>
+        <a href="{{ url_for('logout') }}" class="logout">Sair</a>
+
+        {% if erro %}
+            <div class="mensagem-erro" style="background: #e53e3e; color: white; padding: 10px; border-radius: 4px; margin-bottom: 15px;">{{ erro }}</div>
+        {% endif %}
+
+        <div class="edit-form">
+            <form method="POST" enctype="multipart/form-data">
+                
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" value="{{ usuario.nome }}" required>
+
+                <label for="usuario">Usuário (Login):</label>
+                <input type="text" id="usuario" name="usuario" value="{{ usuario.usuario }}" required>
+                
+                <label for="senha">Nova Senha (deixe vazio para não alterar):</label>
+                <input type="password" id="senha" name="senha" placeholder="Apenas preencha para alterar a senha">
+                <div class="warning">Senha atual não será exibida por segurança.</div>
+
+                <label for="tipo">Tipo de Perfil:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="aluno" {% if usuario.tipo == 'aluno' %}selected{% endif %}>Aluno</option>
+                    <option value="professor" {% if usuario.tipo == 'professor' %}selected{% endif %}>Professor</option>
+                </select>
+
+                <hr style="margin: 20px 0; border-color: #4a5568;">
+                <h2>Dados Adicionais</h2>
+                
+                <div class="current-photo">
+                    <p>Foto Atual:</p>
+                    <img src="{{ url_for('static', filename='uploads/' + (usuario.foto_perfil or 'default_user.png')) }}" alt="Foto Atual">
+                </div>
+                
+                <label for="foto_upload">Substituir Foto de Perfil (Direto do PC):</label>
+                <input type="file" id="foto_upload" name="foto_upload" accept="image/png, image/jpeg, image/gif">
+                
+                <hr style="margin: 20px 0; border-color: #4a5568;">
+
+                <label for="turma">Turma:</label>
+                <input type="text" id="turma" name="turma" value="{{ usuario.turma or '' }}" placeholder="Ex: 5A">
+                
+                <label for="ano_letivo">Ano Letivo:</label>
+                <input type="text" id="ano_letivo" name="ano_letivo" value="{{ usuario.ano_letivo or '' }}" placeholder="Ex: 2025" maxlength="4">
+                
+                <button type="submit" class="btn-futuristic-primary">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
