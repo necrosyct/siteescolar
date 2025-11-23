@@ -1,0 +1,374 @@
+/* ================================================================= */
+/* 1. ESTILOS BASE (ORIGINAIS)                              */
+/* ================================================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    margin: auto;
+}
+
+h1, h2 {
+    /* Cores ajustadas para o Dark Mode nos painéis */
+    color: inherit; 
+}
+
+/* Os inputs base serão sobrescritos pelas classes .futuristic-container-panel */
+input[type="text"], input[type="password"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* O botão de submit base será sobrescrito pelo .btn-futuristic-primary */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Mensagens de feedback */
+.mensagem-sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+}
+
+.mensagem-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+/* ================================================================= */
+/* 2. ESTILOS FUTURISTAS / GLASSMORFISM (INDEX)             */
+/* ================================================================= */
+
+/* Fundo da página */
+body.futuristic-bg {
+    background: linear-gradient(135deg, #1a202c, #2d3748, #1a202c);
+    color: #edf2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container principal com efeito glassmorphism */
+.futuristic-container {
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 50px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    animation: fadeIn 1s ease-out; 
+}
+
+.futuristic-container h1 {
+    color: #63b3ed; 
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.futuristic-container p {
+    color: #a0aec0; 
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+
+/* Botões de navegação inicial */
+.futuristic-btn {
+    display: block;
+    width: 90%;
+    margin: 25px auto;
+    padding: 18px 25px;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-align: center;
+    position: relative;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.futuristic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s;
+}
+
+.futuristic-btn:hover::before {
+    left: 100%;
+}
+
+
+.futuristic-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.futuristic-btn-professor {
+    background: linear-gradient(90deg, #4299e1, #2b6cb0); 
+}
+
+.futuristic-btn-professor:hover {
+    background: linear-gradient(90deg, #3182ce, #2c5282);
+}
+
+.futuristic-btn-aluno {
+    background: linear-gradient(90deg, #48bb78, #38a169); 
+}
+
+.futuristic-btn-aluno:hover {
+    background: linear-gradient(90deg, #38a169, #2f855a);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ================================================================= */
+/* 3. ESTILOS GLOBAIS DARK MODE (DASHBOARDS)                */
+/* ================================================================= */
+
+/* Fundo base para Dashboards */
+.dark-dashboard-bg {
+    background: #1a202c; 
+    color: #edf2f7; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Container principal dos painéis (Admin, Professor, Aluno) */
+.futuristic-container-panel {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #2d3748; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.futuristic-container-panel h1 {
+    color: #63b3ed;
+    border-bottom: 2px solid #4a5568;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+/* Estilo para caixas de informação e formulários */
+.section, .add-form, .info-box {
+    background: #1a202c; 
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #4a5568;
+}
+
+/* Títulos de seção */
+.section h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #90cdf4; 
+    margin-top: 0;
+    margin-bottom: 20px; /* Aumento do espaço após o título */
+}
+
+/* Inputs, Selects e Textareas nos painéis */
+.futuristic-container-panel input[type="text"], 
+.futuristic-container-panel input[type="password"], 
+.futuristic-container-panel select, 
+.futuristic-container-panel textarea {
+    background: #4a5568;
+    color: #edf2f7;
+    border: 1px solid #718096;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Inputs de Login (incluídos aqui para herdar o estilo escuro) */
+.futuristic-login-box input {
+    background: #4a5568;
+    color: #edf2f7;
+    border: 1px solid #718096;
+}
+
+
+/* Botões de Ação Principal */
+.btn-futuristic-primary {
+    background: linear-gradient(90deg, #4299e1, #2b6cb0);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+.btn-futuristic-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botão de Logout */
+.logout {
+    float: right;
+    background: #e53e3e;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+.logout:hover {
+    background: #c53030;
+}
+
+/* --- ADMIN DASHBOARD --- */
+.user-list { list-style: none; padding: 0; }
+.user-item { 
+    background: #2d3748; 
+    border: 1px solid #4a5568; 
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+/* Botões de ação do Admin */
+.action-buttons { 
+    display: flex; 
+    gap: 5px; 
+}
+.remove-btn { background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+.remove-btn:hover { background-color: #c53030; }
+.edit-btn { 
+    background-color: #f6ad55; 
+    color: #333; 
+    border: none; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    text-decoration: none;
+}
+.edit-btn:hover { background-color: #dd6b20; color: white; }
+
+/* --- PROFESSOR DASHBOARD --- */
+.aluno-list-item { 
+    background: #2d3748; 
+    padding: 10px; 
+    margin-bottom: 5px; 
+    border-radius: 4px;
+    color: #edf2f7;
+}
+
+/* ================================================================= */
+/* 4. ESTILOS MELHORADOS (ALUNO DASHBOARD)                  */
+/* ================================================================= */
+
+/* Ícones para os títulos de seção */
+.section h2 svg {
+    width: 28px;
+    height: 28px;
+    fill: #90cdf4; 
+}
+
+/* Cabeçalho do Aluno */
+.aluno-header {
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+    margin-bottom: 30px;
+    border-bottom: 2px solid #4a5568;
+    padding-bottom: 25px;
+}
+.aluno-foto {
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #63b3ed; 
+    box-shadow: 0 0 15px rgba(99, 179, 237, 0.5); 
+}
+.info-box {
+    background-color: #4a5568;
+    padding: 15px 20px; 
+    border-radius: 8px; 
+    margin-top: 15px;
+    border-left: 6px solid #90cdf4; 
+    font-weight: bold;
+    color: #edf2f7;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ocorrências e Lições do Aluno (Melhorado) */
+.ocorrencia, .licao {
+    border-left: 6px solid #63b3ed; 
+    background-color: #2d3748; 
+    padding: 18px; 
+    margin-bottom: 15px; 
+    border-radius: 6px; 
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+.ocorrencia strong, .licao strong {
+    color: #90cdf4; 
+}
+.ocorrencia p, .licao p {
+    margin-top: 8px;
+    color: #a0aec0; 
+}
