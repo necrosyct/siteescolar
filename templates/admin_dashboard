@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Estilos específicos do Admin */
+        .list-section { margin-top: 30px; }
+        .action-buttons { 
+            display: flex; 
+            gap: 5px; 
+        }
+        /* Corrigindo botões dentro do Dark Mode */
+        .remove-btn { background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .remove-btn:hover { background-color: #c53030; }
+        .edit-btn { 
+            background-color: #f6ad55; /* Cor Laranja/Amarela */
+            color: #333; 
+            border: none; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            text-decoration: none;
+        }
+        .edit-btn:hover { background-color: #dd6b20; color: white; }
+    </style>
+</head>
+<body class="dark-dashboard-bg">
+    <div class="futuristic-container-panel">
+        <h1>&#128187; Painel de Administração</h1>
+        <a href="{{ url_for('logout') }}" class="logout">Sair</a>
+
+        {% if mensagem_admin %}
+            <div class="mensagem-sucesso" style="background: #48bb78; color: white; padding: 10px; border-radius: 4px; margin-bottom: 15px;">{{ mensagem_admin }}</div>
+        {% endif %}
+        {% if erro_admin %}
+            <div class="mensagem-erro" style="background: #e53e3e; color: white; padding: 10px; border-radius: 4px; margin-bottom: 15px;">{{ erro_admin }}</div>
+        {% endif %}
+
+        <div class="add-form">
+            <h2>&#10133; Adicionar Novo Perfil</h2>
+            <form method="POST">
+                <input type="hidden" name="acao" value="adicionar">
+                
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="usuario">Usuário (Login):</label>
+                <input type="text" id="usuario" name="usuario" required>
+                
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+
+                <label for="tipo">Tipo de Perfil:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="aluno">Aluno</option>
+                    <option value="professor">Professor</option>
+                </select>
+
+                <label for="turma">Turma (opcional):</label>
+                <input type="text" id="turma" name="turma" placeholder="Ex: 5A ou B">
+                
+                <label for="ano_letivo">Ano Letivo (opcional):</label>
+                <input type="text" id="ano_letivo" name="ano_letivo" placeholder="Ex: 2025" maxlength="4">
+                
+                <button type="submit" class="btn-futuristic-primary">Adicionar Usuário</button>
+            </form>
+        </div>
+        
+        <div class="list-section section">
+            <h2>&#128104;&#8205;&#127891; Lista de Professores</h2>
+            <ul class="user-list">
+                {% for prof in professores %}
+                    <li class="user-item">
+                        <span>**{{ prof.nome }}** (Login: {{ prof.usuario }})</span>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('editar_usuario', user_id=prof.id) }}" class="edit-btn">Editar</a>
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="acao" value="remover">
+                                <input type="hidden" name="usuario_id" value="{{ prof.id }}">
+                                <button type="submit" class="remove-btn" onclick="return confirm('ATENÇÃO! Tem certeza que deseja remover {{ prof.nome }}? TODOS os dados dele serão excluídos!')">Remover</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="list-section section">
+            <h2>&#128100; Lista de Alunos</h2>
+            <ul class="user-list">
+                {% for aluno in alunos %}
+                    <li class="user-item">
+                        <span>**{{ aluno.nome }}** (Turma: {{ aluno.turma or 'N/A' }} | Login: {{ aluno.usuario }})</span>
+                         <div class="action-buttons">
+                            <a href="{{ url_for('editar_usuario', user_id=aluno.id) }}" class="edit-btn">Editar</a>
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="acao" value="remover">
+                                <input type="hidden" name="usuario_id" value="{{ aluno.id }}">
+                                <button type="submit" class="remove-btn" onclick="return confirm('Tem certeza que deseja remover {{ aluno.nome }}? TODAS as ocorrências/dados dele serão excluídos.')">Remover</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
